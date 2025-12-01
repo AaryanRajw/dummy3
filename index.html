@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>INOVAT★RS</title>
+    <title>INOVATĂ⭐RS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -22,6 +21,15 @@
             },
             animation: {
               'breathe': 'breathe 4s ease-in-out infinite',
+              'chaos': 'chaos-slide 1s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+              'sudden': 'sudden-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) both',
+              'bounce-cartoon': 'bounce-cartoon 2s infinite',
+            },
+            keyframes: {
+              'bounce-cartoon': {
+                '0%, 100%': { transform: 'translateY(-10%)', animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)' },
+                '50%': { transform: 'translateY(0)', animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)' },
+              }
             }
           }
         }
@@ -33,56 +41,34 @@
     <style>
       html {
         scroll-padding-top: 0px; 
-        --scrollbar-thumb: #000000; /* Default color variable */
+        --scrollbar-thumb: #000000;
+        scroll-behavior: smooth;
       }
+      
       body {
         font-family: 'Space Mono', monospace;
         overflow-x: hidden;
       }
+
       h1, h2, h3, h4, h5, h6, .font-display {
         font-family: 'Archivo Black', sans-serif;
       }
       
-      /* Hide Scrollbar Utility */
-      .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-
-      /* Custom Global Scrollbar - Neo Brutalist Dynamic */
+      /* Custom Global Scrollbar */
       ::-webkit-scrollbar {
-        width: 10px; /* Reduced from 16px */
+        width: 12px;
       }
       ::-webkit-scrollbar-track {
         background: #ffffff;
         border-left: 2px solid #000000;
       }
-      html.dark ::-webkit-scrollbar-track {
-        background: #000000;
-        border-left: 2px solid #ffffff;
-      }
-      
-      /* The Thumb uses the CSS variable set by App.tsx */
       ::-webkit-scrollbar-thumb {
         background: var(--scrollbar-thumb);
-        border: 1px solid #ffffff;
+        border: 2px solid #ffffff;
         transition: background-color 0.3s ease;
       }
-      html.dark ::-webkit-scrollbar-thumb {
-        border: 1px solid #000000;
-      }
-      
       ::-webkit-scrollbar-thumb:hover {
         background: #FFEB3B !important; 
-      }
-
-      /* Utilities */
-      .bg-grid-pattern {
-        background-image: radial-gradient(currentColor 1px, transparent 1px);
-        background-size: 20px 20px;
       }
 
       /* Animations */
@@ -93,54 +79,90 @@
       .animate-marquee {
         animation: marquee 20s linear infinite;
       }
-      .animate-marquee:hover {
-        animation-play-state: paused;
+      
+      @keyframes sudden-appear {
+        0% { opacity: 0; transform: scale(1.1); }
+        100% { opacity: 1; transform: scale(1); }
       }
-
-      @keyframes glitch-skew {
-        0% { transform: skew(0deg); }
-        20% { transform: skew(-10deg); }
-        40% { transform: skew(10deg); }
-        60% { transform: skew(-5deg); }
-        80% { transform: skew(5deg); }
-        100% { transform: skew(0deg); }
-      }
-      .hover-glitch:hover {
-        animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-      }
-
-      @keyframes breathe {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.02); opacity: 0.9; letter-spacing: 0.05em; }
+      
+      @keyframes chaos-slide {
+        0% { transform: translateX(100px); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
       }
 
       .ease-spring {
-        transition-timing-function: linear(0, 0.0133, 0.0501, 0.1058, 0.176, 0.2567, 0.3442, 0.4351, 0.5267, 0.6163, 0.702, 0.7821, 0.8556, 0.9214, 0.979, 1.0284, 1.0693, 1.1021, 1.1273, 1.1452, 1.1566, 1.1622, 1.1627, 1.1589, 1.1516, 1.1416, 1.1294, 1.1157, 1.1011, 1.0862, 1.0714, 1.057, 1.0433, 1.0307, 1.0192, 1.009, 1.0001, 0.9926, 0.9864, 0.9816, 0.978, 0.9755, 0.974, 0.9734, 0.9736, 0.9745, 0.9759, 0.9777, 0.9798, 0.9821, 0.9845, 0.9869, 0.9893, 0.9916, 0.9938, 0.9958, 0.9976, 0.9991, 1.0005, 1.0016, 1.0025, 1.0033, 1.0038, 1.0041, 1.0043, 1.0043, 1.0043, 1.0041, 1.0038, 1.0035, 1.0032, 1.0028, 1.0024, 1.002, 1.0016, 1.0012, 1.0009, 1.0006, 1.0003, 1, 0.9998, 0.9997, 0.9995, 0.9994, 0.9994, 0.9993, 0.9993, 0.9993, 0.9993, 0.9993, 0.9994, 0.9994, 0.9995, 0.9996, 0.9996, 0.9997, 0.9998, 0.9998, 0.9999, 0.9999, 1);
+        transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
       }
-      
-      .draw-path {
-        stroke-dasharray: 1;
-        stroke-dashoffset: 1;
-        transition: stroke-dashoffset 1s ease-out;
+
+      /* --- NEW ANIMATIONS --- */
+
+      /* Random 1: Float */
+      @keyframes random-float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(10px, -15px) rotate(2deg); }
+        66% { transform: translate(-5px, 10px) rotate(-1deg); }
       }
-      .group:hover .draw-path {
-        stroke-dashoffset: 0;
+      .animate-random-float { animation: random-float 8s ease-in-out infinite; }
+
+      /* Random 2: Wiggle */
+      @keyframes random-wiggle {
+        0%, 100% { transform: rotate(-3deg); }
+        50% { transform: rotate(3deg); }
       }
+      .animate-random-wiggle { animation: random-wiggle 2.5s ease-in-out infinite; }
+
+      /* Random 3: Pop Pulse */
+      @keyframes random-pop {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
+      .animate-random-pop { animation: random-pop 1.5s ease-in-out infinite; }
+
+      /* Doodle 1: Jitter/Shake (Hand-drawn effect) */
+      @keyframes doodle-shake {
+        0% { transform: translate(1px, 1px) rotate(0deg); }
+        10% { transform: translate(-1px, -2px) rotate(-1deg); }
+        20% { transform: translate(-3px, 0px) rotate(1deg); }
+        30% { transform: translate(3px, 2px) rotate(0deg); }
+        40% { transform: translate(1px, -1px) rotate(1deg); }
+        50% { transform: translate(-1px, 2px) rotate(-1deg); }
+        60% { transform: translate(-3px, 1px) rotate(0deg); }
+        70% { transform: translate(3px, 1px) rotate(-1deg); }
+        80% { transform: translate(-1px, -1px) rotate(1deg); }
+        90% { transform: translate(1px, 2px) rotate(0deg); }
+        100% { transform: translate(1px, -2px) rotate(-1deg); }
+      }
+      .animate-doodle-shake { animation: doodle-shake 2s steps(10) infinite; }
+
+      /* Doodle 2: Draw Path */
+      @keyframes draw-path {
+        from { stroke-dashoffset: 1000; opacity: 0; }
+        to { stroke-dashoffset: 0; opacity: 1; }
+      }
+      .animate-draw-path { 
+        stroke-dasharray: 1000; 
+        stroke-dashoffset: 1000; 
+        animation: draw-path 2s ease-out forwards; 
+        animation-delay: 1s;
+      }
+
     </style>
-    <script type="importmap">
-    {
-      "imports": {
-        "react/": "https://aistudiocdn.com/react@^19.2.0/",
-        "react": "https://aistudiocdn.com/react@^19.2.0",
-        "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-        "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0"
-      }
-    }
-    </script>
-  <link rel="stylesheet" href="/index.css">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistejs/plugin-react@^5.1.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
+  <body class="bg-white text-black">
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>

@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Stats } from './components/Stats';
@@ -8,8 +7,10 @@ import { Process } from './components/Process';
 import { ContactForm } from './components/ContactForm';
 import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
+import { Preloader } from './components/Preloader';
 
 const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [isDark, setIsDark] = useState(false);
 
   // Toggle Class on HTML element
@@ -23,26 +24,28 @@ const App: React.FC = () => {
 
   // Dynamic Scrollbar Color Logic
   useEffect(() => {
+    if (isLoading) return;
+
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          let color = '#000000'; // Default
+          let color = '#000000';
           
           switch (entry.target.id) {
             case 'hero':
-              color = isDark ? '#00BCD4' : '#FF4081'; // Cyan/Pink for Hero
+              color = isDark ? '#00BCD4' : '#FF4081';
               break;
             case 'stats':
-              color = '#000000'; // Black for Stats (since it's yellow)
+              color = '#000000';
               break;
             case 'mission':
-              color = '#FFEB3B'; // Yellow for Mission
+              color = '#FFEB3B';
               break;
             case 'process':
-              color = '#00BCD4'; // Cyan for Process
+              color = '#00BCD4';
               break;
             case 'contact':
-              color = '#FFEB3B'; // Yellow for Contact
+              color = '#FFEB3B';
               break;
             case 'faq':
                color = isDark ? '#ffffff' : '#000000';
@@ -58,34 +61,38 @@ const App: React.FC = () => {
 
     const observer = new IntersectionObserver(handleIntersect, {
       root: null,
-      threshold: 0.5, // Trigger when 50% of section is visible
+      threshold: 0.9,
     });
 
-    const sections = document.querySelectorAll('section, #hero');
-    sections.forEach((section) => observer.observe(section));
+    setTimeout(() => {
+      const sections = document.querySelectorAll('section, #hero');
+      sections.forEach((section) => observer.observe(section));
+    }, 100);
 
     return () => observer.disconnect();
-  }, [isDark]);
+  }, [isDark, isLoading]);
 
   const toggleTheme = () => setIsDark(!isDark);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white selection:bg-cyan selection:text-black transition-colors duration-300">
-      <Navbar isDark={isDark} toggleTheme={toggleTheme} />
-      
-      {/* Hero is Fixed, ID added for Observer */}
-      <Hero />
-      
-      {/* Main content wrapper must be relative and have z-index to slide over fixed hero */}
-      <div className="relative z-10 bg-white dark:bg-black transition-colors duration-300">
-        <Stats />
-        <Mission />
-        <Process />
-        <ContactForm />
-        <FAQ />
-        <Footer />
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        <Preloader onComplete={() => setIsLoading(false)} />
+      ) : (
+        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white selection:bg-cyan selection:text-black transition-colors duration-300">
+          <Navbar isDark={isDark} toggleTheme={toggleTheme} />
+          <Hero />
+          <div className="relative z-10 bg-white dark:bg-black transition-colors duration-300">
+            <Stats />
+            <Mission />
+            <Process />
+            <ContactForm />
+            <FAQ />
+            <Footer />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
