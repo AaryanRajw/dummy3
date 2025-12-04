@@ -1,33 +1,17 @@
-import { GoogleGenAI } from "@google/genai";
-
-// Initialize Gemini AI
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
+// Mock service since GenAI was removed
 export const calculateEnvironmentalImpact = async (weight: string): Promise<string> => {
-  try {
-    const model = "gemini-2.5-flash";
-    const prompt = `
-      You are an aggressive, raw, neo-brutalist eco-activist calculator.
-      Input: ${weight} kg of cardboard waste.
-      Task: Calculate the specific environmental savings (Trees saved, Gallons of water saved, CO2 emissions prevented) achieved by recycling this amount.
-      
-      Output Constraints:
-      - Return ONLY a raw list of stats.
-      - Use uppercase for labels.
-      - Keep it punchy and short.
-      - No fluff, no polite introductions.
-      - Format: 
-        [ICON] STAT: VALUE
-    `;
+  // Static mocked response to keep app functional without AI
+  const weightNum = parseFloat(weight) || 0;
+  
+  if (weightNum <= 0) return "ENTER VALID WEIGHT";
 
-    const response = await ai.models.generateContent({
-      model: model,
-      contents: prompt,
-    });
+  const trees = (weightNum * 0.017).toFixed(1);
+  const water = (weightNum * 7).toFixed(0);
+  const co2 = (weightNum * 3.3).toFixed(0);
 
-    return response.text || "ERROR: DATA CORRUPTED. TRY AGAIN.";
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    return "SYSTEM FAILURE: UNABLE TO CALCULATE IMPACT. CHECK CONNECTION.";
-  }
+  return `
+    [TREE] TREES SAVED: ${trees}
+    [DROP] WATER SAVED: ${water} GAL
+    [CLOUD] CO2 PREVENTED: ${co2} KG
+  `;
 };
